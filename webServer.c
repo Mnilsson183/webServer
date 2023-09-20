@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 
 int main(void){
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -12,4 +13,9 @@ int main(void){
         return -1;
     }
 
+    struct sockaddr_in serverAddr;
+    serverAddr.sin_family = AF_INET;
+    
+
+    
 }
