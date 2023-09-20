@@ -45,9 +45,16 @@ int main(void){
     }
 
     // parse the http request
-    
 
 
 
-    
+    // serve web page
+    FILE *file = fopen("~/Desktop/webServer", "r");
+    if (file == NULL){
+        perror("The web page to serve was not found");
+        return -1;
+    }
+
+    char responseHeader[1024];
+    sprintf(responseHeader, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n", contentLength);
 }
