@@ -5,19 +5,49 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 
 int main(void){
+    // create the server socket
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1){
-        printf("The server was unable to start the socket");
-        return -1;
+        perror("The server was unable to start the socket");
+        exit(EXIT_FAILURE);
     }
 
+    // set up the server addr 
     struct sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = 
-    serverAddr.sin_addr
-    serverAddr.zero[8];
+    serverAddr.sin_port = htons(8080);
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
+
+    // bind together the socket and the addr
+    if (bind(serverSocket, (struct serverAddr *)&serverAddr, sizeof(serverAddr))){
+        perror("The server was unable to bind the server");
+        exit(EXIT_FAILURE);
+    }
+
+    // began to listen for client connections
+    if (listen(serverSocket, 5) == -1){
+        perror("The server was unable to listen");
+        exit(EXIT_FAILURE);
+    }
+
+    //allow a client connection
+    int clientSocket;
+    struct sockaddr_in clientAddr;
+    socklen_t clientAddrLen = sizeof(clientAddr);
+
+    clientSocket = accept(serverSocket, (struct serverAddr *)&serverAddr, sizeof(serverAddr));
+    if (clientSocket == -1){
+        perror("The server was unable to accept a client connection");
+        exit(EXIT_FAILURE);
+    }
+
+    // parse the http request
+    
+
+
 
     
 }
