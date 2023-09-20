@@ -65,7 +65,9 @@ int main(void){
         send(clientSocket, buffer, strlen(buffer), 0);
     }
 
+    // close the client connection
     close(clientSocket);
 
-    
+    // close the server
+    close(serverSocket);
 }
