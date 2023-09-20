@@ -47,6 +47,7 @@ int main(void){
     // parse the http request
 
 
+    int contentLength;
 
     // serve web page
     FILE *file = fopen("~/Desktop/webServer", "r");
@@ -57,4 +58,7 @@ int main(void){
 
     char responseHeader[1024];
     sprintf(responseHeader, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n", contentLength);
+    send(clientSocket, sizeof(responseHeader), strlen(responseHeader), 0);
+
+    
 }
