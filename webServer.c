@@ -15,7 +15,9 @@ int main(void){
 
     struct sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
-    
+    serverAddr.sin_port = 
+    serverAddr.sin_addr
+    serverAddr.zero[8];
 
     
 }
