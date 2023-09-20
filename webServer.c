@@ -60,5 +60,12 @@ int main(void){
     sprintf(responseHeader, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n", contentLength);
     send(clientSocket, sizeof(responseHeader), strlen(responseHeader), 0);
 
+    char buffer[1024];
+    while( fgets(buffer, sizeof(buffer),file) != NULL){
+        send(clientSocket, buffer, strlen(buffer), 0);
+    }
+
+    close(clientSocket);
+
     
 }
