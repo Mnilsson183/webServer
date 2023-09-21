@@ -60,7 +60,7 @@ int main(void){
                   "<html>hello, world</html>\r\n";
 
 
-        int contentLength;
+        int contentLength = sizeof(resp);
 
         // serve web page
         FILE *file = fopen("~/Desktop/webServer/content/web.html", "r");
