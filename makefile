@@ -5,3 +5,6 @@ make:
 
 run:
 	./build/webServer
+
+clean:
+	rm build/*
