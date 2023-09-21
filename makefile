@@ -12,7 +12,7 @@ client:
 
 run:
 	@echo "running project"
-	./build/client.c && ./build/webServer
+	./build/client.c wait ./build/webServer
 
 clean:
 	@echo "Cleaning project"

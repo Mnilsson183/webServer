@@ -26,7 +26,7 @@ int main(void){
         perror("The server was unable to start the socket");
         exit(EXIT_FAILURE);
     }
-    printf("Socket created successfully\n");
+    printf("\nSocket created successfully\n");
 
     // set up the server addr 
     struct sockaddr_in serverAddr;
@@ -87,6 +87,9 @@ int main(void){
 
         // close the server
         close(serverSocket);
+
+        // kill socket on sys
+        setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, true, sizeof(int));
 
         return 0;
     }
