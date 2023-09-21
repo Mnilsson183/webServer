@@ -1,1 +1,0 @@
-gcc -o build/webServer webServer.c
