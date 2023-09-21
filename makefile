@@ -1,14 +1,18 @@
 CC = gcc
 
-all: make
+all: server client
 
-make:
-	@echo "making project"
+server:
+	@echo "building webserver"
 	${CC} -o build/webServer src/webServer.c
 
+client:
+	@echo "building client"
+	${CC} -o build/client.c src/webServer.c
+
 run:
-	@echo "building project"
-	./build/webServer
+	@echo "running project"
+	./build/client.c && ./build/webServer
 
 clean:
 	@echo "Cleaning project"
