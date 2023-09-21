@@ -9,6 +9,16 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+
+#define PORT 8080
+
+char resp[] = "HTTP/1.0 200 OK\r\n"
+            "Server: webserver-c\r\n"
+            "Content-type: text/html\r\n\r\n"
+            "<html>hello, world</html>\r\n";
+
+
+
 int main(void){
     // create the server socket
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -21,7 +31,7 @@ int main(void){
     // set up the server addr 
     struct sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(8080);
+    serverAddr.sin_port = htons(PORT);
     serverAddr.sin_addr.s_addr = INADDR_ANY;
 
     // bind together the socket and the addr
@@ -36,7 +46,7 @@ int main(void){
         perror("The server was unable to listen");
         exit(EXIT_FAILURE);
     }
-    printf("Server listening for connections\n");
+    printf("Server listening for connections on port %d\n", PORT);
 
     //allow a client connection
     int clientSocket;
@@ -54,36 +64,32 @@ int main(void){
         // parse the http request
         // todo
         // for now just give default web page
-        char resp[] = "HTTP/1.0 200 OK\r\n"
-                  "Server: webserver-c\r\n"
-                  "Content-type: text/html\r\n\r\n"
-                  "<html>hello, world</html>\r\n";
-
-
         int contentLength = sizeof(resp);
 
-        // serve web page
-        FILE *file = fopen("~/Desktop/webServer/content/web.html", "r");
-        if (file == NULL){
-            perror("The web page to serve was not found");
-            return -1;
-        }
+        // serve web page from file
+        // FILE *file = fopen("~/Desktop/webServer/content/web.html", "r");
+        // if (file == NULL){
+        //     perror("The web page to serve was not found");
+        //     return -1;
+        // }
+        // char responseHeader[1024];
+        // sprintf(responseHeader, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n", contentLength);
+        // send(clientSocket, sizeof(responseHeader), strlen(responseHeader), 0);
 
-        char responseHeader[1024];
-        sprintf(responseHeader, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n", contentLength);
-        send(clientSocket, sizeof(responseHeader), strlen(responseHeader), 0);
+        // char buffer[1024];
+        // while( fgets(buffer, sizeof(buffer),resp) != NULL){
+        //     send(clientSocket, buffer, strlen(buffer), 0);
+        // }
+        send(clientSocket, resp, strlen(resp), 0);
 
-        char buffer[1024];
-        while( fgets(buffer, sizeof(buffer),resp) != NULL){
-            send(clientSocket, buffer, strlen(buffer), 0);
-        }
+        // close the client connection
+        close(clientSocket);
 
+        // close the server
+        close(serverSocket);
+
+        return 0;
     }
-    // close the client connection
-    close(clientSocket);
-
-    // close the server
-    close(serverSocket);
 }
 
 void *handle_client(void *arg){
