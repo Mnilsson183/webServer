@@ -74,7 +74,7 @@ int main(void){
         send(clientSocket, sizeof(responseHeader), strlen(responseHeader), 0);
 
         char buffer[1024];
-        while( fgets(buffer, sizeof(buffer),file) != NULL){
+        while( fgets(buffer, sizeof(buffer),resp) != NULL){
             send(clientSocket, buffer, strlen(buffer), 0);
         }
 
