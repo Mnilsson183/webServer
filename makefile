@@ -1,10 +1,15 @@
+CC = gcc
+
 all: make
 
 make:
-	gcc -o build/webServer webServer.c
+	@echo "making project"
+	${CC} -o build/webServer src/webServer.c
 
 run:
+	@echo "building project"
 	./build/webServer
 
 clean:
+	@echo "Cleaning project"
 	rm build/*

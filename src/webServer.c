@@ -63,7 +63,7 @@ int main(void){
         int contentLength;
 
         // serve web page
-        FILE *file = fopen("~/Desktop/webServer/web.html", "r");
+        FILE *file = fopen("~/Desktop/webServer/content/web.html", "r");
         if (file == NULL){
             perror("The web page to serve was not found");
             return -1;
