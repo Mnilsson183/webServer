@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <errno.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -51,12 +52,18 @@ int main(void){
         printf("Connection Accepted\n");
 
         // parse the http request
+        // todo
+        // for now just give default web page
+        char resp[] = "HTTP/1.0 200 OK\r\n"
+                  "Server: webserver-c\r\n"
+                  "Content-type: text/html\r\n\r\n"
+                  "<html>hello, world</html>\r\n";
 
 
         int contentLength;
 
         // serve web page
-        FILE *file = fopen("~/Desktop/webServer", "r");
+        FILE *file = fopen("~/Desktop/webServer/web.html", "r");
         if (file == NULL){
             perror("The web page to serve was not found");
             return -1;
